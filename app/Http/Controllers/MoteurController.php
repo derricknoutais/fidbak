@@ -15,7 +15,7 @@ class MoteurController extends Controller
     }
     public function enregistrer(Request $request){
         Moteur::create([
-            'marque_id' => $request->marque,
+            'marque_id' => $request->marque['id'],
             'nom' => $request->moteur
         ]);
     }

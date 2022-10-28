@@ -9,8 +9,8 @@ class ModèleTypeController extends Controller
 {
     public function enregistrer(Request $request){
         ModèleType::create([
-            'modèle_id' => $request->modèle,
-            'type_id' => $request->type
+            'modèle_id' => $request->modèle['id'],
+            'type_id' => $request->type['id']
         ]);
     }
 }

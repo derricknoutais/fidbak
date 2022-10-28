@@ -10,8 +10,8 @@
                     <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#moteur">Ajouter Moteur</button>
                     <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#moteur_type">Attribuer un Moteur à un Type</button>
                     <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modèle_type">Attribuer un Modèle à un Type</button>
-                
-                
+
+
             </div>
             <div class="col-md-4 offset-md-1 border p-3 bg-primary">
                 <h1 class="text-center mt-5">Fiche de Renseignement</h1>
@@ -114,9 +114,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <select type="text" class="form-control" v-model="formulaire_type.marque" @change="chercheType(formulaire_type.marque)">
+                            <multiselect v-model="formulaire_type.marque" :options="marques" label="nom" track-by="id" placeholder="Selectionne une Marque" @select="chercheType(formulaire_type.marque)">
+                                <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
+                            </multiselect>
+                            <!-- <select type="text" class="form-control" v-model="formulaire_type.marque" @change="chercheType(formulaire_type.marque)">
                                 <option :value="marque.id" v-for="marque in marques">{{ marque.nom }}</option>
-                            </select>
+                            </select> -->
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="text" v-model="formulaire_type.type"/>
@@ -140,9 +143,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <select type="text" class="form-control" v-model="formulaire_modèle.marque">
+                            <multiselect v-model="formulaire_modèle.marque" :options="marques" label="nom" track-by="id" placeholder="Selectionne une Marque">
+                                <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
+                            </multiselect>
+                            <!-- <select type="text" class="form-control" v-model="formulaire_modèle.marque">
                                 <option :value="marque.id" v-for="marque in marques">{{ marque.nom }}</option>
-                            </select>
+                            </select> -->
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="text" v-model="formulaire_modèle.modèle"/>
@@ -166,9 +172,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <select type="text" class="form-control" v-model="formulaire_moteur.marque" @change="chercheType(formulaire_moteur.marque)">
+                            <multiselect v-model="formulaire_moteur.marque" :options="marques" label="nom" track-by="id" placeholder="Selectionne une Marque">
+                                <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
+                            </multiselect>
+                            <!-- <select type="text" class="form-control" v-model="formulaire_moteur.marque" @change="chercheType(formulaire_moteur.marque)">
                                 <option :value="marque.id" v-for="marque in marques">{{ marque.nom }}</option>
-                            </select>
+                            </select> -->
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="text" v-model="formulaire_moteur.moteur" />
@@ -192,14 +201,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <select type="text" class="form-control" v-model="formulaire_type_moteur.type">
-                                <option :value="type.id" v-for="type in types">{{ type.nom }}</option>
-                            </select>
+                            <multiselect v-model="formulaire_type_moteur.type" :options="types" label="nom" track-by="id" placeholder="Selectionne un Type">
+                                <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
+                            </multiselect>
                         </div>
                         <div class="form-group">
-                            <select type="text" class="form-control" v-model="formulaire_type_moteur.moteur">
-                                <option :value="moteur.id" v-for="moteur in moteurs">{{ moteur.nom }}</option>
-                            </select>
+                            <multiselect v-model="formulaire_type_moteur.moteur" :options="moteurs" label="nom" track-by="id" placeholder="Selectionne un Moteur">
+                                <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
+                            </multiselect>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -220,14 +229,20 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <select type="text" class="form-control" v-model="formulaire_modèle_type.type">
+                            <multiselect v-model="formulaire_modèle_type.type" :options="types" label="nom" track-by="id" placeholder="Selectionne un Type">
+                                <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
+                            </multiselect>
+                            <!-- <select type="text" class="form-control" v-model="formulaire_modèle_type.type">
                                 <option :value="type.id" v-for="type in types">{{ type.nom }}</option>
-                            </select>
+                            </select> -->
                         </div>
                         <div class="form-group">
-                            <select type="text" class="form-control" v-model="formulaire_modèle_type.modèle">
+                            <multiselect v-model="formulaire_modèle_type.modèle" :options="modèles" label="nom" track-by="id" placeholder="Selectionne un Modele">
+                                <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
+                            </multiselect>
+                            <!-- <select type="text" class="form-control" v-model="formulaire_modèle_type.modèle">
                                 <option :value="modèle.id" v-for="modèle in modèles">{{ modèle.nom }}</option>
-                            </select>
+                            </select> -->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -238,7 +253,7 @@
             </div>
         </div>
     </div>
-    
+
 </template>
 <script>
 export default {
@@ -311,7 +326,7 @@ export default {
                     console.log(error);
                 });
             }, 100);
-            
+
         },
         chercheMoteurs(){
             setTimeout(() => {
@@ -322,7 +337,7 @@ export default {
                 }).catch(error => {
                     console.log(error);
                 });
-                this.chercheModèles();   
+                this.chercheModèles();
             }, 100);
         },
         chercheModèles(){
@@ -342,13 +357,13 @@ export default {
             axios.post('/fiche-renseignement/marque/api/enregistrer', this.formulaire_marque ).then(response => {
                 console.log(response.data);
                 location.reload();
-                
+
             }).catch(error => {
                 console.log(error);
             });
         },
         enregistreUnType(){
-            axios.post('/fiche-renseignement/type/api/enregistrer', this.formulaire_type ).then(response => {
+            axios.post('/fiche-renseignement/type/api/enregistrer', this.formulaire_type ).then( response => {
                 console.log(response.data);
                 location.reload();
             }).catch(error => {

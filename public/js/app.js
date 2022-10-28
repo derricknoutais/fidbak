@@ -50021,6 +50021,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50633,53 +50648,42 @@ var render = function() {
               _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formulaire_type.marque,
-                          expression: "formulaire_type.marque"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.marques,
+                        label: "nom",
+                        "track-by": "id",
+                        placeholder: "Selectionne une Marque"
+                      },
                       on: {
-                        change: [
-                          function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.formulaire_type,
-                              "marque",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          },
-                          function($event) {
-                            return _vm.chercheType(_vm.formulaire_type.marque)
+                        select: function($event) {
+                          return _vm.chercheType(_vm.formulaire_type.marque)
+                        }
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "singleLabel",
+                          fn: function(ref) {
+                            var option = ref.option
+                            return [_c("strong", [_vm._v(_vm._s(option.nom))])]
                           }
-                        ]
+                        }
+                      ]),
+                      model: {
+                        value: _vm.formulaire_type.marque,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formulaire_type, "marque", $$v)
+                        },
+                        expression: "formulaire_type.marque"
                       }
-                    },
-                    _vm._l(_vm.marques, function(marque) {
-                      return _c("option", { domProps: { value: marque.id } }, [
-                        _vm._v(_vm._s(marque.nom))
-                      ])
-                    }),
-                    0
-                  )
-                ]),
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("input", {
@@ -50761,48 +50765,37 @@ var render = function() {
               _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.marques,
+                        label: "nom",
+                        "track-by": "id",
+                        placeholder: "Selectionne une Marque"
+                      },
+                      scopedSlots: _vm._u([
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formulaire_modèle.marque,
-                          expression: "formulaire_modèle.marque"
+                          key: "singleLabel",
+                          fn: function(ref) {
+                            var option = ref.option
+                            return [_c("strong", [_vm._v(_vm._s(option.nom))])]
+                          }
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formulaire_modèle,
-                            "marque",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
+                      ]),
+                      model: {
+                        value: _vm.formulaire_modèle.marque,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formulaire_modèle, "marque", $$v)
+                        },
+                        expression: "formulaire_modèle.marque"
                       }
-                    },
-                    _vm._l(_vm.marques, function(marque) {
-                      return _c("option", { domProps: { value: marque.id } }, [
-                        _vm._v(_vm._s(marque.nom))
-                      ])
-                    }),
-                    0
-                  )
-                ]),
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("input", {
@@ -50884,53 +50877,37 @@ var render = function() {
               _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.marques,
+                        label: "nom",
+                        "track-by": "id",
+                        placeholder: "Selectionne une Marque"
+                      },
+                      scopedSlots: _vm._u([
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formulaire_moteur.marque,
-                          expression: "formulaire_moteur.marque"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      on: {
-                        change: [
-                          function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.formulaire_moteur,
-                              "marque",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          },
-                          function($event) {
-                            return _vm.chercheType(_vm.formulaire_moteur.marque)
+                          key: "singleLabel",
+                          fn: function(ref) {
+                            var option = ref.option
+                            return [_c("strong", [_vm._v(_vm._s(option.nom))])]
                           }
-                        ]
+                        }
+                      ]),
+                      model: {
+                        value: _vm.formulaire_moteur.marque,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formulaire_moteur, "marque", $$v)
+                        },
+                        expression: "formulaire_moteur.marque"
                       }
-                    },
-                    _vm._l(_vm.marques, function(marque) {
-                      return _c("option", { domProps: { value: marque.id } }, [
-                        _vm._v(_vm._s(marque.nom))
-                      ])
-                    }),
-                    0
-                  )
-                ]),
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("input", {
@@ -51012,91 +50989,69 @@ var render = function() {
               _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.types,
+                        label: "nom",
+                        "track-by": "id",
+                        placeholder: "Selectionne un Type"
+                      },
+                      scopedSlots: _vm._u([
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formulaire_type_moteur.type,
-                          expression: "formulaire_type_moteur.type"
+                          key: "singleLabel",
+                          fn: function(ref) {
+                            var option = ref.option
+                            return [_c("strong", [_vm._v(_vm._s(option.nom))])]
+                          }
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formulaire_type_moteur,
-                            "type",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
+                      ]),
+                      model: {
+                        value: _vm.formulaire_type_moteur.type,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formulaire_type_moteur, "type", $$v)
+                        },
+                        expression: "formulaire_type_moteur.type"
                       }
-                    },
-                    _vm._l(_vm.types, function(type) {
-                      return _c("option", { domProps: { value: type.id } }, [
-                        _vm._v(_vm._s(type.nom))
-                      ])
-                    }),
-                    0
-                  )
-                ]),
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.moteurs,
+                        label: "nom",
+                        "track-by": "id",
+                        placeholder: "Selectionne un Moteur"
+                      },
+                      scopedSlots: _vm._u([
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formulaire_type_moteur.moteur,
-                          expression: "formulaire_type_moteur.moteur"
+                          key: "singleLabel",
+                          fn: function(ref) {
+                            var option = ref.option
+                            return [_c("strong", [_vm._v(_vm._s(option.nom))])]
+                          }
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formulaire_type_moteur,
-                            "moteur",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
+                      ]),
+                      model: {
+                        value: _vm.formulaire_type_moteur.moteur,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formulaire_type_moteur, "moteur", $$v)
+                        },
+                        expression: "formulaire_type_moteur.moteur"
                       }
-                    },
-                    _vm._l(_vm.moteurs, function(moteur) {
-                      return _c("option", { domProps: { value: moteur.id } }, [
-                        _vm._v(_vm._s(moteur.nom))
-                      ])
-                    }),
-                    0
-                  )
-                ])
+                    })
+                  ],
+                  1
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -51150,91 +51105,69 @@ var render = function() {
               _vm._m(6),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.types,
+                        label: "nom",
+                        "track-by": "id",
+                        placeholder: "Selectionne un Type"
+                      },
+                      scopedSlots: _vm._u([
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formulaire_modèle_type.type,
-                          expression: "formulaire_modèle_type.type"
+                          key: "singleLabel",
+                          fn: function(ref) {
+                            var option = ref.option
+                            return [_c("strong", [_vm._v(_vm._s(option.nom))])]
+                          }
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formulaire_modèle_type,
-                            "type",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
+                      ]),
+                      model: {
+                        value: _vm.formulaire_modèle_type.type,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formulaire_modèle_type, "type", $$v)
+                        },
+                        expression: "formulaire_modèle_type.type"
                       }
-                    },
-                    _vm._l(_vm.types, function(type) {
-                      return _c("option", { domProps: { value: type.id } }, [
-                        _vm._v(_vm._s(type.nom))
-                      ])
-                    }),
-                    0
-                  )
-                ]),
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.modèles,
+                        label: "nom",
+                        "track-by": "id",
+                        placeholder: "Selectionne un Modele"
+                      },
+                      scopedSlots: _vm._u([
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formulaire_modèle_type.modèle,
-                          expression: "formulaire_modèle_type.modèle"
+                          key: "singleLabel",
+                          fn: function(ref) {
+                            var option = ref.option
+                            return [_c("strong", [_vm._v(_vm._s(option.nom))])]
+                          }
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formulaire_modèle_type,
-                            "modèle",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
+                      ]),
+                      model: {
+                        value: _vm.formulaire_modèle_type.modèle,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formulaire_modèle_type, "modèle", $$v)
+                        },
+                        expression: "formulaire_modèle_type.modèle"
                       }
-                    },
-                    _vm._l(_vm.modèles, function(modèle) {
-                      return _c("option", { domProps: { value: modèle.id } }, [
-                        _vm._v(_vm._s(modèle.nom))
-                      ])
-                    }),
-                    0
-                  )
-                ])
+                    })
+                  ],
+                  1
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -51579,7 +51512,7 @@ var content = __webpack_require__(53);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(55)("33caab74", content, false, {});
+var update = __webpack_require__(55)("3b233a5a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -57004,7 +56937,7 @@ if (false) {
 /* 87 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Node Sass does not yet support your current environment: Windows 64-bit with Unsupported runtime (93)\nFor more information on which environments are supported please see:\nhttps://github.com/sass/node-sass/releases/tag/v4.14.1\n    at module.exports (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\node-sass\\lib\\binding.js:13:13)\n    at Object.<anonymous> (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\node-sass\\lib\\index.js:14:35)\n    at Module._compile (node:internal/modules/cjs/loader:1126:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1180:10)\n    at Module.load (node:internal/modules/cjs/loader:1004:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:839:12)\n    at Module.require (node:internal/modules/cjs/loader:1028:19)\n    at require (node:internal/modules/cjs/helpers:102:18)\n    at Object.<anonymous> (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\sass-loader\\lib\\loader.js:3:14)\n    at Module._compile (node:internal/modules/cjs/loader:1126:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1180:10)\n    at Module.load (node:internal/modules/cjs/loader:1004:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:839:12)\n    at Module.require (node:internal/modules/cjs/loader:1028:19)\n    at require (node:internal/modules/cjs/helpers:102:18)\n    at loadLoader (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\loadLoader.js:18:17)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:176:18\n    at loadLoader (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\loadLoader.js:47:3)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:176:18\n    at loadLoader (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\loadLoader.js:47:3)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:176:18\n    at loadLoader (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\loadLoader.js:47:3)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at runLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:365:2)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\NormalModule.js:195:19\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:172:11\n    at loadLoader (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\loadLoader.js:32:11)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:176:18\n    at loadLoader (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\loadLoader.js:47:3)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:176:18\n    at loadLoader (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\loadLoader.js:47:3)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:176:18\n    at loadLoader (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\loadLoader.js:47:3)\n    at iteratePitchingLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at runLoaders (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\loader-runner\\lib\\LoaderRunner.js:365:2)\n    at NormalModule.doBuild (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\NormalModule.js:182:3)\n    at NormalModule.build (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\NormalModule.js:275:15)\n    at Compilation.buildModule (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\Compilation.js:157:10)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\Compilation.js:460:10\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\NormalModuleFactory.js:243:5\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\NormalModuleFactory.js:94:13\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\tapable\\lib\\Tapable.js:268:11\n    at NormalModuleFactory.<anonymous> (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\tapable\\lib\\Tapable.js:272:13)\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\NormalModuleFactory.js:69:10\n    at C:\\Users\\USER\\Documents\\code\\fidbak\\node_modules\\webpack\\lib\\NormalModuleFactory.js:196:7\n    at processTicksAndRejections (node:internal/process/task_queues:78:11)");
 
 /***/ })
 /******/ ]);

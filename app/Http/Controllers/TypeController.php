@@ -13,8 +13,8 @@ class TypeController extends Controller
         return Type::where('marque_id', $marque)->orderBy('nom')->get();
     }
     public function enregistrer(Request $request){
-        Type::create([
-            'marque_id' => $request->marque,
+        return Type::create([
+            'marque_id' => $request->marque['id'],
             'nom' => $request->type
         ]);
     }

@@ -16,7 +16,7 @@ class ModèleController extends Controller
     public function enregistrer(Request $request){
         $modèle = Modèle::create([
             'nom' => $request->modèle,
-            'marque_id' => $request->marque
+            'marque_id' => $request->marque['id']
         ]);
     }
 }
