@@ -189,7 +189,7 @@
                     <p><strong v-if="fiche.détails !== null">Articles Recherchés:</strong></p>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" v-for="article in fiche.articles" >
-                            <div class="row">{{ article.handle.name }}</div>
+                            <div class="row" v-if="article.handle">{{ article.handle.name }}</div>
                             <div class="row">{{ article.nom }}</div>
                             <div class="row">{{ article.autreInfo }}</div>
                             <div class="row star" @mouseleave="bringTheOriginalLightsBack(article)">
