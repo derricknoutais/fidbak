@@ -140,6 +140,8 @@
                                 <li class="list-group-item" v-for="article in fiche.articles" >
                                     <!-- <input type="checkbox" @click="selectionneArticle(article)" v-if="! article.commandé"> -->
                                     <div class="row">{{ article.nom }}</div>
+                                    <div class="row">{{ article.autreInfo }}</div>
+                                    <div class="row">{{ article.handle.id }}</div>
 
                                     <!-- <button v-if="article.état === 'enregistré' " type="button" class="btn btn-primary btn-sm py-0 px-1" @click="changerEtat(index, fiche, article, 'commandé')">Commander <i class="fas fa-envelope-open-text    "></i></button> -->
                                     <span v-if="article.état === 'commandé' " class="badge badge-success badge-pill py-1"> Commandé <i class="fas fa-clock"></i></span>
@@ -187,7 +189,9 @@
                     <p><strong v-if="fiche.détails !== null">Articles Recherchés:</strong></p>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" v-for="article in fiche.articles" >
+                            <div class="row">{{ article.handle.name }}</div>
                             <div class="row">{{ article.nom }}</div>
+                            <div class="row">{{ article.autreInfo }}</div>
                             <div class="row star" @mouseleave="bringTheOriginalLightsBack(article)">
                                 <i class="fas fa-star" :class="article.starDup >= 1 ? 'text-warning' : ''" @mouseover="lightTheStars(article ,1)" @click="storeTheStars(article ,1)"></i>
                                 <i class="fas fa-star" :class="article.starDup >= 2 ? 'text-warning' : ''" @mouseover="lightTheStars(article ,2)" @click="storeTheStars(article ,2)"></i>
@@ -196,7 +200,13 @@
                                 <i class="fas fa-star" :class="article.starDup >= 5 ? 'text-warning' : ''" @mouseover="lightTheStars(article ,5)" @click="storeTheStars(article ,5)"></i>
                             </div>
                             <div class="row my-2">
-
+                                <a :href="'https://www.onlinecarparts.co.uk/spares-search.html?keyword=' + article.nom" target="_blank" >OnlineCarParts</a>
+                            </div>
+                            <div class="row my-2">
+                                <a :href="'https://www.fitinpart.sg/index.php?route=product/search/partSearch&part_no=' + article.nom + '&show=0'"  target="_blank">FitinPart</a>
+                            </div>
+                            <div class="row my-2">
+                                <a :href="'https://alvadi.ee/en/search?q=' + article.nom" target="_blank" >ALVADI</a>
                             </div>
                             <div class="row" v-if="! article.editing">
                                 <!-- <button v-if="article.état === 'enregistré' " type="button" class="btn btn-primary btn-sm py-0 px-1" @click="changerEtat(index, fiche, article, 'commandé')">Commander <i class="fas fa-envelope-open-text    "></i></button> -->

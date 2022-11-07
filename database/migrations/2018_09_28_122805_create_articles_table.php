@@ -17,6 +17,8 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('fiche_renseignement_id');
             $table->string('nom');
+            $table->unsignedInteger('handle_id')->nullable();
+            $table->text('autreInfo')->nullable();
             $table->tinyInteger('stars')->default(0);
             $table->boolean('commandé')->default(0);
             $table->enum('état', ['enregistré', 'demandé', 'commandé', 'archivé'])->default('enregistré')->nullable();

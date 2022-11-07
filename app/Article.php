@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Handle;
 
 class Article extends Model
 {
@@ -16,5 +17,14 @@ class Article extends Model
     public function fiche_renseignement()
     {
         return $this->belongsTo('App\FicheRenseignement');
+    }
+    /**
+     * Get the handle that owns the Article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function handle()
+    {
+        return $this->belongsTo(Handle::class);
     }
 }

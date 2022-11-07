@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Playground;
+use App\Sub;
 use Illuminate\Http\Request;
-use App\Commande;
 
-class PlaygroundController extends Controller
+class SubController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,8 @@ class PlaygroundController extends Controller
      */
     public function index()
     {
-        //
+        $subs = Sub::get();
+        return view('sub.index', compact('subs'));
     }
 
     /**
@@ -42,23 +42,21 @@ class PlaygroundController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Playground  $playground
+     * @param  \App\Sub  $sub
      * @return \Illuminate\Http\Response
      */
-    public function show(Commande $commande)
+    public function show(Sub $sub)
     {
-        return $commande->loadMissing('playground');
-
-        return view('playground.show', compact('commande'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Playground  $playground
+     * @param  \App\Sub  $sub
      * @return \Illuminate\Http\Response
      */
-    public function edit(Playground $playground)
+    public function edit(Sub $sub)
     {
         //
     }
@@ -67,10 +65,10 @@ class PlaygroundController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Playground  $playground
+     * @param  \App\Sub  $sub
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Playground $playground)
+    public function update(Request $request, Sub $sub)
     {
         //
     }
@@ -78,10 +76,10 @@ class PlaygroundController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Playground  $playground
+     * @param  \App\Sub  $sub
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Playground $playground)
+    public function destroy(Sub $sub)
     {
         //
     }

@@ -2,6 +2,7 @@
 
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 header('Access-Control-Allow-Origin:  *');
 header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
@@ -14,18 +15,18 @@ header('Access-Control-Allow-Headers:  X-CSRF-TOKEN, X-Requested-With, Content-T
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::get('/tess', function(){
-        return 1;
-    });
+
+    Route::prefix('/api')->group( function(){
+        Route::get('/handles', function(){
+            return DB::table('handles')->get();
+        });
+    } );
+
     Route::view('/fiche-renseignement/renseigner', 'fiche-renseignement.create');
     Route::prefix('/fiche-renseignement')->group(function(){
         Route::get('reporting', 'FicheRenseignementController@reporting');
-
         Route::get('/', 'FicheRenseignementController@répertoire');
-
         Route::get('/{fiche}', 'FicheRenseignementController@show' );
-
-
 
         Route::prefix('/api')->group(function(){
             Route::get('/all', 'FicheRenseignementController@all');
@@ -79,21 +80,10 @@ header('Access-Control-Allow-Headers:  X-CSRF-TOKEN, X-Requested-With, Content-T
         });
     });
 
-    Route::prefix('/commande')->group(function(){
-        Route::view('nouvelle', 'commande.nouvelle');
-        Route::view('répertoire', 'commande.répertoire');
-        Route::get('{commande}', 'CommandeController@voir');
-        Route::get('/{commande}/produits', 'CommandeController@voirProduits');
-        Route::post('/{commande}/ajouteProduit', 'CommandeController@ajouteProduits');
-        Route::post('/{commande}/ajouteArticle', 'CommandeController@ajouteArticles');
-        Route::get('/{commande}/playground', 'PlaygroundController@show');
-        Route::prefix('/api')->group(function(){
-            Route::post('commander', 'CommandeController@commander');
-            Route::get('all', 'CommandeController@all');
-            Route::post('nouvelle', 'CommandeController@store');
-        });
-
+    Route::prefix('/subzero')->group(function(){
+        Route::get('/', 'SubController@index');
     });
+
 
     Route::prefix('/article')->group(function(){
         Route::prefix('/api')->group(function(){
@@ -133,49 +123,6 @@ header('Access-Control-Allow-Headers:  X-CSRF-TOKEN, X-Requested-With, Content-T
         Route::put('', 'ArticleController@update');
     });
 
-    Route::prefix('/demande-achat')->group(function(){
-        Route::prefix('/api')->group(function(){
-            Route::get('all', 'DemandeAchatController@all');
-            Route::get('créerDemandesParFournisseur/{commande}', 'DemandeAchatController@créerDemandesParFournisseur');
-            Route::post('creer', 'DemandeAchatController@creer');
-            Route::post('enregistrer-coût', 'DemandeAchatController@enregistrerCoût');
-            Route::post('ajouter-quantité', 'DemandeAchatController@ajouterQuantité');
-        });
-        Route::view('nouvelle', 'demande-achat.nouvelle' );
-        Route::view('répertoire', 'demande-achat.répertoire');
-        Route::get('{demande}', 'DemandeAchatController@voir');
-    });
-
-    Route::prefix('/bon-commande')->group(function(){
-        Route::prefix('/api')->group(function(){
-            Route::get('all', 'BonCommandeController@all');
-            Route::get('créerCommandes/{commande}', 'BonCommandeController@créerCommandes');
-        });
-        Route::view('répertoire', 'bon-commande.répertoire');
-        Route::get('{commande}', 'BonCommandeController@voir');
-    });
-
-    Route::prefix('/produits-commande')->group(function(){
-        Route::get('/{produitcommande}/destroy', 'ProduitCommandeController@destroy');
-        Route::prefix('api')->group(function(){
-            Route::post('upload', 'ProduitCommandeController@upload');
-            Route::get('all/{commande}', 'ProduitCommandeController@all');
-        });
-    });
-
-    Route::prefix('/fournisseur')->group(function(){
-        Route::prefix('/api')->group(function(){
-            Route::get('all', 'FournisseurController@all');
-        });
-        Route::view('nouveau', 'demande-achat.nouvelle' );
-        Route::view('répertoire', 'demande-achat.répertoire');
-    });
-
-    Route::prefix('/produits')->group(function(){
-        Route::prefix('api')->group(function(){
-            Route::get('all', 'ProduitController@all');
-        });
-    });
 
 
 

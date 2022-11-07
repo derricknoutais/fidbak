@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Online Resource Management</title>
+        <title>Fidbak</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -72,23 +72,24 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    APP-Pro
+                <div class="title m-b-md tw-flex tw-flex-col">
+                    <p>
+                        Fidbak
+                    </p>
+
+                    <img src="/image/logo.jpg" alt="" class="tw-w-1/3">
                 </div>
 
                 <div class="links">
                     <a href="/fiche-renseignement">
                         <i class="fab fa-file-alt"></i>
-                        Fiche Renseignement
+                        Fiches Renseignement
                     </a>
-                    <a href="/commande/répertoire">
-                        Commande
+                    <a href="/fiche-renseignement/renseigner">
+                        <i class="fab fa-file-alt"></i>
+                        Nouvelle Fiche
                     </a>
-                    <a href="/demande-achat/répertoire">
-                        Demande Achat
-                    <a href="/bon-commande/répertoire">
-                        Bon Commande
-                    </a>
+
                 </div>
             </div>
         </div>

@@ -23,7 +23,9 @@ class FicheRenseignementController extends Controller
             foreach ($request->articles as $article) {
                 Article::create([
                     'fiche_renseignement_id' => $fiche->id,
-                    'nom' => $article
+                    'nom' => $article['nom'],
+                    'handle_id' => $article['handle']['id'],
+                    'autreInfo' => $article['autreInfo']
                 ]);
             }
         }
@@ -32,7 +34,7 @@ class FicheRenseignementController extends Controller
         return view('fiche-renseignement.accueil');
     }
     public function all(){
-        return $fiches = FicheRenseignement::with(['articles', 'marque', 'type', 'moteur', 'modèle'])->orderBy('created_at','desc')->get();
+        return $fiches = FicheRenseignement::with(['articles', 'marque', 'type', 'moteur', 'modèle', 'articles.handle'])->orderBy('created_at','desc')->get();
     }
 
     public function reporting(){

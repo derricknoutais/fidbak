@@ -1,10 +1,11 @@
+
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreatePlaygroundsTable extends Migration
+class CreateSubsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +14,11 @@ class CreatePlaygroundsTable extends Migration
      */
     public function up()
     {
-        Schema::create('playgrounds', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('subs', function (Blueprint $table) {
+            $table->id();
+            $table->string('product_id');
+            $table->integer('quantité');
             $table->string('nom');
-            $table->unsignedInteger('commande_id');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreatePlaygroundsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('playgrounds');
+        Schema::dropIfExists('subs');
     }
 }

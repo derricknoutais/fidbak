@@ -6,12 +6,10 @@
                 <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#marque">Ajouter Marque</button>
                     <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#type">Ajouter Type</button>
-                    <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modèle">Ajouter Modèle</button>
+                    <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modèle">Ajouter Modèle, Moteur et Attribuer a Type</button>
                     <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#moteur">Ajouter Moteur</button>
                     <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#moteur_type">Attribuer un Moteur à un Type</button>
                     <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modèle_type">Attribuer un Modèle à un Type</button>
-
-
             </div>
             <div class="col-md-4 offset-md-1 border p-3 bg-primary">
                 <h1 class="text-center mt-5">Fiche de Renseignement</h1>
@@ -20,10 +18,6 @@
                     <multiselect v-model="fiche_renseignement.marque" :options="marques" label="nom" track-by="id" placeholder="Selectionne une Marque" @select="chercheType()">
                         <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
                     </multiselect>
-
-                    <!-- <select type="text" class="form-control" v-model="fiche_renseignement.marque" @change="chercheType(fiche_renseignement.marque)">
-                        <option :value="marque.id" v-for="marque in marques">{{ marque.nom }}</option>
-                    </select> -->
                 </div>
                 <div class="form-group">
                     <label>Type</label>
@@ -48,9 +42,6 @@
                     <multiselect v-model="fiche_renseignement.moteur" :options="moteurs" label="nom" track-by="id" placeholder="Selectionne un Moteur">
                         <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
                     </multiselect>
-                    <!-- <select type="text" class="form-control" v-model="fiche_renseignement.moteur" >
-                        <option :value="moteur.id" v-for="moteur in moteurs">{{ moteur.nom }}</option>
-                    </select> -->
                 </div>
                 <div class="form-group">
                     <label>Année</label>
@@ -64,17 +55,35 @@
                     <label>Lien Partsouq</label>
                     <input type="text" class="form-control" v-model="fiche_renseignement.détails">
                 </div>
-                <div class="form-group">
-                    <label class="d-block">Articles Recherchés</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" v-model="fiche_renseignement.article">
+                <div class="form-group bg-info p-4">
+                    <label class="d-block text-white">Articles Recherchés</label>
+                    <div>
+                        <input type="checkbox" v-model="fiche_renseignement.autreGroupeCheckBox" > <label for="">Autre Groupe</label>
+                        <multiselect
+                            v-if="! fiche_renseignement.autreGroupeCheckBox"
+                            v-model="fiche_renseignement.handle" :options="handles" label="name" track-by="id" placeholder="Selectionne un Moteur">
+                            <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.name }}</strong></template>
+
+                        </multiselect>
+                        <input
+                            v-if=" fiche_renseignement.autreGroupeCheckBox"
+                        type="text" class="form-control" v-model="fiche_renseignement.autreGroupe" placeholder="Reference">
+                    <div class="input-group mt-3">
+                        <input type="text" class="form-control" v-model="fiche_renseignement.reference" placeholder="Reference">
+                        <input type="text" class="form-control" v-model="fiche_renseignement.autreInfo" placeholder="Autres Infos (Marques, etc)">
                         <div class="input-group-append">
-                          <button class="btn btn-outline-success text-white" type="button" @click="ajouterArticles()">Ajouter</button>
+                          <button class="btn btn-outline-success text-white bg-success" type="button" @click="ajouterArticles()">Ajouter</button>
                         </div>
                     </div>
+                    </div>
+
                 </div>
-                <ol class="list-group list-group-flush offset-md-1 col-md-6 mt-5">
-                    <li class="list-group-item" v-for="article in fiche_renseignement.articles">{{ article }}</li>
+                <ol class="list-group list-group-flush offset-md-1 col-md-10 mt-5">
+                    <li class="list-group-item" v-for="article in fiche_renseignement.articles">
+                        {{ article.handle.name }}
+                        {{ article.nom }}
+                        ( {{ article.autreInfo }} )
+                    </li>
                 </ol>
                 <div class="row justify-content-center mt-2">
                     <button class="btn btn-success" @click="enregistreLaFiche()">Enregistrer</button>
@@ -150,8 +159,17 @@
                                 <option :value="marque.id" v-for="marque in marques">{{ marque.nom }}</option>
                             </select> -->
                         </div>
+
                         <div class="form-group">
-                            <input class="form-control" type="text" v-model="formulaire_modèle.modèle"/>
+                            <multiselect v-model="formulaire_modèle.type" :options="types" label="nom" track-by="id" placeholder="Attribuer a un Type">
+                                <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.nom }}</strong></template>
+                            </multiselect>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" v-model="formulaire_modèle.modèle" placeholder="Creer Modèle" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" v-model="formulaire_modèle.moteur" placeholder="Creer Moteur"/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -265,9 +283,12 @@ export default {
                 année: '',
                 chassis: '',
                 moteur: '',
-                autres: '',
-                article: '',
+                autreInfo: '',
+                reference: '',
+                handle : '',
                 modèle: '',
+                autreGroupeCheckBox : false,
+                autreGroupe : '',
                 articles: []
             },
             "formulaire_marque" : {
@@ -291,12 +312,15 @@ export default {
             },
             "formulaire_modèle": {
                 marque: '',
-                modèle: ''
+                modèle: '',
+                type : null,
+                moteur : null
             },
             marques: [],
             types: [],
             moteurs: [],
             modèles: [],
+            handles : [],
             modal:{
                 ajouter: '',
                 attribuer: ''
@@ -305,11 +329,27 @@ export default {
     },
     methods: {
         ajouterArticles(){
-            this.fiche_renseignement.articles.push(this.fiche_renseignement.article)
+            this.fiche_renseignement.articles.push(
+                {
+                    nom: this.fiche_renseignement.reference,
+                    handle: this.fiche_renseignement.handle,
+                    autreInfo : this.fiche_renseignement.autreInfo
+                }
+
+            )
+            this.fiche_renseignement.reference = ''
+            this.fiche_renseignement.autreInfo = ''
+            this.$forceUpdate()
         },
         enregistreLaFiche(){
+
+            this.fiche_renseignement.marque ? null : this.fiche_renseignement.marque = {'id' : null}
+            this.fiche_renseignement.type ? null : this.fiche_renseignement.type = {'id' : null}
+            this.fiche_renseignement.moteur ? null : this.fiche_renseignement.moteur = {'id' : null}
+            this.fiche_renseignement.modèle ? null : this.fiche_renseignement.modèle = {'id' : null}
+
             axios.post('/fiche-renseignement/api/enregistrer', this.fiche_renseignement).then(response => {
-                location.reload();
+                // location.reload();
                 console.log(response.data);
             }).catch(error => {
                 console.log(error);
@@ -417,6 +457,9 @@ export default {
             });
             axios.get('/fiche-renseignement/modèle/api/all').then(response => {
                 this.modèles = response.data;
+            });
+            axios.get('/api/handles').then(response => {
+                this.handles = response.data
             });
         }
     },

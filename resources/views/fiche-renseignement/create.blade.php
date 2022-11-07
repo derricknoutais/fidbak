@@ -3,6 +3,6 @@
 
 @section('content')
 
-    <fiche-renseignement></fiche-renseignement>
+    <formulaire></formulaire>
 
 @endsection
