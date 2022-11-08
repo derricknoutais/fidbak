@@ -50353,6 +50353,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50413,10 +50417,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.fiche_renseignement.articles.push({
                 nom: this.fiche_renseignement.reference,
                 handle: this.fiche_renseignement.handle,
-                autreInfo: this.fiche_renseignement.autreInfo
+                autreInfo: this.fiche_renseignement.autreInfo,
+                autreGroupe: this.fiche_renseignement.autreGroupe
             });
             this.fiche_renseignement.reference = '';
             this.fiche_renseignement.autreInfo = '';
+            this.fiche_renseignement.autreGroupe = '';
+            this.fiche_renseignement.autreGroupeCheckBox = false;
             this.$forceUpdate();
         },
         enregistreLaFiche: function enregistreLaFiche() {
@@ -50427,7 +50434,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.fiche_renseignement.modèle ? null : this.fiche_renseignement.modèle = { 'id': null };
 
             axios.post('/fiche-renseignement/api/enregistrer', this.fiche_renseignement).then(function (response) {
-                // location.reload();
+                location.reload();
                 console.log(response.data);
             }).catch(function (error) {
                 console.log(error);
@@ -50913,7 +50920,10 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "text", placeholder: "Reference" },
+                    attrs: {
+                      type: "text",
+                      placeholder: "Autre Groupe Inexistant Dans Vend"
+                    },
                     domProps: { value: _vm.fiche_renseignement.autreGroupe },
                     on: {
                       input: function($event) {
@@ -51016,12 +51026,21 @@ var render = function() {
           },
           _vm._l(_vm.fiche_renseignement.articles, function(article) {
             return _c("li", { staticClass: "list-group-item" }, [
+              article.handle
+                ? _c("span", [_vm._v(_vm._s(article.handle.name))])
+                : article.autreGroupe
+                ? _c("span", [_vm._v(_vm._s(article.autreGroupe))])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(article.nom) +
+                    "\n                    "
+                )
+              ]),
               _vm._v(
-                "\n                    " +
-                  _vm._s(article.handle.name) +
-                  "\n                    " +
-                  _vm._s(article.nom) +
-                  "\n                    ( " +
+                "\n\n                    ( " +
                   _vm._s(article.autreInfo) +
                   " )\n                "
               )
@@ -52540,6 +52559,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -52555,6 +52578,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 autres: '',
                 article: '',
                 modèle: '',
+                autreGroupe: '',
                 articles: [],
                 types: [],
                 marques: [],
@@ -53694,19 +53718,29 @@ var render = function() {
                   { staticClass: "list-group list-group-flush" },
                   _vm._l(fiche.articles, function(article) {
                     return _c("li", { staticClass: "list-group-item" }, [
-                      article.handle
-                        ? _c("div", { staticClass: "row" }, [
-                            _vm._v(_vm._s(article.handle.name))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
-                        _vm._v(_vm._s(article.nom))
+                        article.handle
+                          ? _c("span", { staticClass: "ml-1" }, [
+                              _vm._v(" " + _vm._s(article.handle.name) + " ")
+                            ])
+                          : article.autreGroupe
+                          ? _c("span", { staticClass: "ml-1" }, [
+                              _vm._v(" " + _vm._s(article.autreGroupe) + " ")
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "ml-1" }, [
+                          _vm._v(_vm._s(article.nom))
+                        ]),
+                        _vm._v(" "),
+                        article.autreInfo
+                          ? _c("span", { staticClass: "ml-1" }, [
+                              _vm._v(" ( " + _vm._s(article.autreInfo) + " ) ")
+                            ])
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _vm._v(_vm._s(article.autreInfo))
-                      ]),
+                      _c("div", { staticClass: "row" }),
                       _vm._v(" "),
                       _c(
                         "div",

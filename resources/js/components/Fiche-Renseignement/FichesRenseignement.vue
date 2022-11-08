@@ -189,9 +189,15 @@
                     <p><strong v-if="fiche.détails !== null">Articles Recherchés:</strong></p>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" v-for="article in fiche.articles" >
-                            <div class="row" v-if="article.handle">{{ article.handle.name }}</div>
-                            <div class="row">{{ article.nom }}</div>
-                            <div class="row">{{ article.autreInfo }}</div>
+
+                            <div class="row">
+                                <span class="ml-1"  v-if="article.handle"> {{ article.handle.name }} </span>
+                                <span class="ml-1" v-else-if="article.autreGroupe"> {{ article.autreGroupe }} </span>
+                                <span class="ml-1">{{ article.nom }}</span>
+
+                                <span class="ml-1" v-if="article.autreInfo"> ( {{ article.autreInfo }} ) </span>
+                            </div>
+                            <div class="row"></div>
                             <div class="row star" @mouseleave="bringTheOriginalLightsBack(article)">
                                 <i class="fas fa-star" :class="article.starDup >= 1 ? 'text-warning' : ''" @mouseover="lightTheStars(article ,1)" @click="storeTheStars(article ,1)"></i>
                                 <i class="fas fa-star" :class="article.starDup >= 2 ? 'text-warning' : ''" @mouseover="lightTheStars(article ,2)" @click="storeTheStars(article ,2)"></i>
@@ -229,8 +235,6 @@
                                 </select>
                                 <i class="fas fa-save text-primary ml-3" @click="updateArticle(article)"></i>
                             </div>
-
-
                         </li>
                     </ul>
                 </div>
@@ -411,6 +415,7 @@ export default {
                 autres: '',
                 article: '',
                 modèle: '',
+                autreGroupe : '',
                 articles: [],
                 types: [],
                 marques: [],

@@ -67,7 +67,7 @@
                         </multiselect>
                         <input
                             v-if=" fiche_renseignement.autreGroupeCheckBox"
-                        type="text" class="form-control" v-model="fiche_renseignement.autreGroupe" placeholder="Reference">
+                        type="text" class="form-control" v-model="fiche_renseignement.autreGroupe" placeholder="Autre Groupe Inexistant Dans Vend">
                     <div class="input-group mt-3">
                         <input type="text" class="form-control" v-model="fiche_renseignement.reference" placeholder="Reference">
                         <input type="text" class="form-control" v-model="fiche_renseignement.autreInfo" placeholder="Autres Infos (Marques, etc)">
@@ -80,8 +80,12 @@
                 </div>
                 <ol class="list-group list-group-flush offset-md-1 col-md-10 mt-5">
                     <li class="list-group-item" v-for="article in fiche_renseignement.articles">
-                        {{ article.handle.name }}
-                        {{ article.nom }}
+                        <span v-if="article.handle">{{ article.handle.name }}</span>
+                        <span v-else-if="article.autreGroupe">{{ article.autreGroupe }}</span>
+                        <span>
+                            {{ article.nom }}
+                        </span>
+
                         ( {{ article.autreInfo }} )
                     </li>
                 </ol>
@@ -333,12 +337,15 @@ export default {
                 {
                     nom: this.fiche_renseignement.reference,
                     handle: this.fiche_renseignement.handle,
-                    autreInfo : this.fiche_renseignement.autreInfo
+                    autreInfo : this.fiche_renseignement.autreInfo,
+                    autreGroupe : this.fiche_renseignement.autreGroupe
                 }
 
             )
             this.fiche_renseignement.reference = ''
             this.fiche_renseignement.autreInfo = ''
+            this.fiche_renseignement.autreGroupe = ''
+            this.fiche_renseignement.autreGroupeCheckBox = false
             this.$forceUpdate()
         },
         enregistreLaFiche(){
@@ -349,7 +356,7 @@ export default {
             this.fiche_renseignement.modèle ? null : this.fiche_renseignement.modèle = {'id' : null}
 
             axios.post('/fiche-renseignement/api/enregistrer', this.fiche_renseignement).then(response => {
-                // location.reload();
+                location.reload();
                 console.log(response.data);
             }).catch(error => {
                 console.log(error);

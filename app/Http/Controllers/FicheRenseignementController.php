@@ -21,11 +21,17 @@ class FicheRenseignementController extends Controller
         ]);
         if($fiche){
             foreach ($request->articles as $article) {
+                if(! $article['handle']){
+                    $article['handle'] = [
+                        'id' => null
+                    ];
+                }
                 Article::create([
                     'fiche_renseignement_id' => $fiche->id,
                     'nom' => $article['nom'],
                     'handle_id' => $article['handle']['id'],
-                    'autreInfo' => $article['autreInfo']
+                    'autreInfo' => $article['autreInfo'],
+                    'autreGroupe' => $article['autreGroupe']
                 ]);
             }
         }
