@@ -15,6 +15,7 @@ class FicheRenseignementController extends Controller
             'type_id' => $request->type['id'],
             'moteur_id' => $request->moteur['id'],
             'modèle_id' => $request->modèle['id'],
+            'local' => $request->local,
             'année' => $request->année,
             'chassis' => $request->chassis,
             'détails' => $request->détails

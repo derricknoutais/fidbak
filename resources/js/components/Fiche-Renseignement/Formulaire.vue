@@ -55,6 +55,15 @@
                     <label>Lien Partsouq</label>
                     <input type="text" class="form-control" v-model="fiche_renseignement.détails">
                 </div>
+                <div class="form-group">
+                    <label>Local Requete</label>
+                    <select type="text" class="form-control" v-model="fiche_renseignement.local">
+
+                        <option value="Port-Gentil">STA Port-Gentil</option>
+                        <option value="Porto-Novo">STA Porto-Novo</option>
+
+                    </select>
+                </div>
                 <div class="form-group bg-info p-4">
                     <label class="d-block text-white">Articles Recherchés</label>
                     <div>
@@ -289,6 +298,7 @@ export default {
                 moteur: '',
                 autreInfo: '',
                 reference: '',
+                local : '',
                 handle : '',
                 modèle: '',
                 autreGroupeCheckBox : false,
@@ -342,10 +352,11 @@ export default {
                 }
 
             )
-            this.fiche_renseignement.reference = ''
-            this.fiche_renseignement.autreInfo = ''
-            this.fiche_renseignement.autreGroupe = ''
-            this.fiche_renseignement.autreGroupeCheckBox = false
+            this.fiche_renseignement.reference = '';
+            this.fiche_renseignement.local = '';
+            this.fiche_renseignement.autreInfo = '';
+            this.fiche_renseignement.autreGroupe = '';
+            this.fiche_renseignement.autreGroupeCheckBox = false;
             this.$forceUpdate()
         },
         enregistreLaFiche(){

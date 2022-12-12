@@ -8,7 +8,7 @@
             </div>
         </div>
         <!-- Input Filtres -->
-        <div class="row mt-5">
+        <div class="row py-3 bg-info">
             <div class="col-md-3">
                 <!-- <select class="form-control" v-model="filtre_marque" @change="chercheTypes(filtre_marque)">
                     <option value="marque">Sélectionne une Marque</option>
@@ -50,7 +50,8 @@
                 </multiselect>
             </div>
         </div>
-        <div class="row mt-3">
+
+        <div class="row py-3 bg-info">
             <div class="col-3">
                 <div class="form-check">
                   <label class="form-check-label">
@@ -58,8 +59,6 @@
                     Archivé
                   </label>
                 </div>
-            </div>
-            <div class="col-3">
                 <div class="form-check">
                   <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" name="" id="" value=1 v-model="filtre_partiel">
@@ -67,6 +66,14 @@
                   </label>
                 </div>
             </div>
+            <div class="col-3">
+                <label>Marque</label>
+                <select v-model="filtre_local">
+                    <option>Porto-Novo</option>
+                    <option>Port-Gentil</option>
+                </select>
+            </div>
+
             <div class="col-3">
                 <div class="form-check">
                   <label class="form-check-label">
@@ -84,11 +91,14 @@
                 </div>
             </div>
         </div>
+        <div class="row p-3 bg-info text-center">
+            <button class="btn btn-dark" @click="réinitialiser()"> <i class="fas fa-broom"></i>Réinitialiser Filtres</button>
+        </div>
         <!-- Boutons Fonctionnalité -->
-        <div class="row my-5">
+        <div class="row p-5">
             <div class="col-md-6">
                 <a class="btn btn-success" href="/fiche-renseignement/renseigner"> <i class="fas fa-plus"></i> Ajouter une Requête</a>
-                <button class="btn btn-dark" @click="réinitialiser()"> <i class="fas fa-broom"></i>Réinitialiser Filtres</button>
+
                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                   Creer demande
                 </button> -->
@@ -166,7 +176,7 @@
                         <span v-if="fiche.type !== null"> {{ fiche.type.nom }}</span>
                         <span v-if="fiche.modèle !== null">{{ fiche.modèle.nom }}</span>
                         <span v-if="fiche.année !== null">{{ fiche.année }}</span>
-
+                        <span v-if="fiche.local !== null">{{ fiche.local }}</span>
                     </h5>
                     <div class="col-md-12">
                         <a href="#" @click="selectionneLaModification(fiche)"
@@ -285,6 +295,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Marque</label>
+
                             <select type="text" class="form-control" v-if="aEditer" v-model="aEditer.marque_id" @change="chercheTypesEdit(aEditer.marque_id)">
                                 <option :value="marque.id" v-for="marque in marques">{{ marque.nom }}</option>
                             </select>
@@ -320,7 +331,8 @@
                             <input type="text" class="form-control" v-if="aEditer" v-model="aEditer.détails">
                         </div>
                         <div class="form-group">
-                            <label class="d-block">Articles Recherchés</label>
+                            <label class="d-block">Ajouter Nouveaux Articles</label>
+
                             <div class="input-group">
                                 <input type="text" class="form-control" v-if="aEditer" v-model="articleAEditer">
                                 <div class="input-group-append">
@@ -340,8 +352,16 @@
                     </div>
                     <ol class="list-group list-group-flush offset-md-1 col-md-6 mt-2 " v-if="aEditer">
                         <li class="list-group-item" v-if="aEditer.articles && !editerArticles" v-for="(article, index) in aEditer.articles">{{ article.nom }}</li>
+
                         <div class="row" v-for="(article, index) in aEditer.articles">
                             <div class="col-md-10" v-if="aEditer.articles && editerArticles">
+                                <input type="checkbox" v-if="aEditer" v-model="aEditer.articles[index].autreGroupeCheckBox" > <label for="">Autre Groupe</label>
+                                <multiselect
+                                    v-if="! aEditer.articles[index].autreGroupeCheckBox"
+                                    v-model="aEditer.articles[index].handle" :options="handles" label="name" track-by="id" placeholder="Selectionne un Groupe">
+                                    <template slot="singleLabel" slot-scope="{ option }" :value="option.id"><strong>{{ option.name }}</strong></template>
+
+                                </multiselect>
                                 <input class="form-control d-inline-block" v-if="aEditer" v-model="aEditer.articles[index].nom">
                             </div>
                             <div class="col-md-2" v-if="editerArticles" >
@@ -430,6 +450,7 @@ export default {
             filtre_partiel : false,
             filtre_date_from: null,
             filtre_date_to : null,
+            filtre_local : null,
             filtre : {
                 marque: '',
                 type: ''
@@ -449,6 +470,7 @@ export default {
             viewMode: 'Carte',
             aSupprimer: null,
             aEditer: null,
+            handles : null,
             articleAEditer: null,
             editerArticles: false
         }
@@ -525,7 +547,8 @@ export default {
             this.filtre_modele = 'modèle'
             this.filtered_moteurs = this.moteurs.moteurs
             this.filtre_date_from = null
-            this.filtre_date_to = null
+            this.filtre_date_to = null,
+            this.filtre_local = null
         },
         selectionneArticle(article){
             this.selectionArticles.push(article)
@@ -612,6 +635,9 @@ export default {
                 axios.get('/fiche-renseignement/moteur/api/all').then(response => {
                     this.moteurs = response.data;
                 });
+                axios.get('/api/handles').then(response => {
+                this.handles = response.data
+            });
             }
 
 
@@ -774,6 +800,12 @@ export default {
                 } else {
                     return Date.parse(element.created_at.replace('-','/','g')) > Date.parse(this.filtre_date_from) && Date.parse(element.created_at.replace('-','/','g')) < Date.parse(this.filtre_date_to)
                 }
+            });
+        },
+        filtre_local(){
+            this.filtered = this.fiches.filter( element => {
+                return element.local === this.filtre_local
+
             });
         }
     },

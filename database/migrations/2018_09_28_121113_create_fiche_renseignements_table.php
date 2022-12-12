@@ -22,8 +22,8 @@ class CreateFicheRenseignementsTable extends Migration
             $table->string('chassis')->nullable();
             $table->text('détails')->nullable();
             $table->unsignedInteger('modèle_id')->nullable();
+            $table->string('local');
 
-            
             $table->foreign('modèle_id')->references('id')->on('modèles')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('marque_id')->references('id')->on('marques')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade')->onUpdate('cascade');
