@@ -14,7 +14,7 @@ class SubController extends Controller
      */
     public function index()
     {
-        $subs = Sub::get();
+        $subs = Sub::with('produit')->get();
         return view('sub.index', compact('subs'));
     }
 
@@ -36,7 +36,11 @@ class SubController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Sub::create([
+            'product_id' => $request->id,
+            'quantité' => 1,
+            'nom' => $request->variant_name,
+        ]);
     }
 
     /**
