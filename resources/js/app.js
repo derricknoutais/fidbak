@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,21 +15,32 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import vSelect from 'vue-select'
+import VueCurrencyFilter from 'vue-currency-filter';
 
 Vue.component('v-select', vSelect)
 
 import Multiselect from 'vue-multiselect';
 Vue.component('multiselect', Multiselect)
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('reporting-renseignement', require('./components/Fiche-Renseignement/Reporting.vue'));
-Vue.component('formulaire', require('./components/Fiche-Renseignement/Formulaire.vue'));
-Vue.component('fiches-de-renseignement', require('./components/Fiche-Renseignement/FichesRenseignement.vue'));
-Vue.component('show-fiche', require('./components/Fiche-Renseignement/ShowFiche.vue'));
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('reporting-renseignement', require('./components/Fiche-Renseignement/Reporting.vue').default);
+Vue.component('formulaire', require('./components/Fiche-Renseignement/Formulaire.vue').default);
+Vue.component('fiches-de-renseignement', require('./components/Fiche-Renseignement/FichesRenseignement.vue').default);
+Vue.component('show-fiche', require('./components/Fiche-Renseignement/ShowFiche.vue').default);
 
-Vue.component('sub-index', require('./components/Sub/SubIndex.vue'));
-Vue.component('sub-create', require('./components/Sub/SubCreate.vue'));
+Vue.component('sub-index', require('./components/Sub/SubIndex.vue').default);
+Vue.component('sub-create', require('./components/Sub/SubCreate.vue').default);
+Vue.component('sub-reporting', require('./components/Sub/SubReporting.vue').default);
 
+Vue.use(VueCurrencyFilter,
+    {
+        symbol: 'F CFA ',
+        thousandsSeparator: '.',
+        fractionCount: 0,
+        fractionSeparator: ',',
+        symbolPosition: 'back',
+        symbolSpacing: true
+    })
 
 const app = new Vue({
     el: '#app',

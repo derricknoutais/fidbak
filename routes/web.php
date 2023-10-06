@@ -1,9 +1,11 @@
 <?php
 
 use App\Article;
+use App\Sub;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redis;
 // header('Access-Control-Allow-Origin:  *');
 // header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
 // header('Access-Control-Allow-Headers:  X-CSRF-TOKEN, X-Requested-With, Content-Type, X-Auth-Token, Origin, Authorization');
@@ -81,6 +83,7 @@ Route::prefix('/fiche-renseignement')->group(function () {
 
 Route::prefix('/subzero')->group(function () {
     Route::get('/', 'SubController@index');
+    Route::get('/reporting', 'SubController@reporting');
     Route::post('/store', 'SubController@store');
 });
 
@@ -126,5 +129,20 @@ Route::prefix('/article')->group(function () {
 });
 
 Route::get('/test-pulldb', function () {
-    return Http::get('http://pulldb.azimuts.gq/api/products')->json();
+    $subs = Sub::all();
+    $products = Http::get('http://pulldb.azimuts.gq/api/products')->json();
+    Redis::ltrim('pulled_products', 1, 0);
+    Redis::rpush('pulled_products', json_encode($products));
+
+    // Recupere les produits recuperes de Vend stockes dans Redis ()
+    $products = json_decode(Redis::lrange('pulled_products', -1000000, 1000000)[0], true);
+
+    $subs->map(function ($sub) use ($products) {
+        $found = array_filter($products, function ($product) use ($sub) {
+            return $product['id'] === $sub->product_id;
+        });
+        return $sub->produit = collect(array_values($found));
+    });
+    Redis::del('subs_with_products');
+    Redis::set('subs_with_products', $subs);
 });

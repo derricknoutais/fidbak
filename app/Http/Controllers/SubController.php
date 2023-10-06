@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Sub;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redis;
 
 class SubController extends Controller
 {
@@ -23,9 +25,27 @@ class SubController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function reporting()
     {
-        //
+        $subs = json_decode(Redis::get('subs_with_products'), true);
+        $subs = collect($subs)->map(function ($item) {
+            // Transforme chaque produit en collection pour pouvoir
+
+            $t = collect($item);
+            $t->produit = collect($item['produit']);
+            // Trier et retourner les donnees  ci-dessous
+            return $t;
+        });
+        // return $subs;
+        $total = 0;
+        foreach ($subs as $sub) {
+            if (isset($sub->produit) && isset($sub->produit->price_including_tax)) {
+                $total += $sub->produit->price_including_tax;
+            }
+        }
+        // return $total;
+
+        return view('sub.reporting', compact('subs', 'total'));
     }
 
     /**

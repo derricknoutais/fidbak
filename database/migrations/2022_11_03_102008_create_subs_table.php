@@ -1,6 +1,4 @@
-
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +17,7 @@ class CreateSubsTable extends Migration
             $table->string('product_id');
             $table->integer('quantité');
             $table->string('nom');
-            $table->timestamps();
+            $table->$table->timestamps();
         });
     }
 
