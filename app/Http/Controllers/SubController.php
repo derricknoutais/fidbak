@@ -32,7 +32,7 @@ class SubController extends Controller
             // Transforme chaque produit en collection pour pouvoir
 
             $t = collect($item);
-            $t->produit = collect($item['produit']);
+            $t->produit = $item['produit'];
             // Trier et retourner les donnees  ci-dessous
             return $t;
         });

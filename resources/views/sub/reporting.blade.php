@@ -35,8 +35,8 @@
                         </thead>
                         <tbody>
                             <tr v-for="sub in subs">
-                                <td scope="row">@{{ sub.produit.name }}</td>
-                                <td>@{{ sub.produit.supply_price }}</td>
+                                <td scope="row">@{{ sub.produit[0].name }}</td>
+                                <td>@{{ sub.produit[0].supply_price }}</td>
                             </tr>
                         </tbody>
                     </table>

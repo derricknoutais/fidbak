@@ -130,7 +130,7 @@ Route::prefix('/article')->group(function () {
 
 Route::get('/test-pulldb', function () {
     $subs = Sub::all();
-    $products = Http::get('http://pulldb.azimuts.gq/api/products')->json();
+    $products = Http::get('https://pulldb.azimuts.gq/api/products')->json();
     Redis::ltrim('pulled_products', 1, 0);
     Redis::rpush('pulled_products', json_encode($products));
 
