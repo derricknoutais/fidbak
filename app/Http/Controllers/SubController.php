@@ -16,7 +16,7 @@ class SubController extends Controller
      */
     public function index()
     {
-        $subs = Sub::with('produit')->get();
+        $subs = Sub::all();
         return view('sub.index', compact('subs'));
     }
 
