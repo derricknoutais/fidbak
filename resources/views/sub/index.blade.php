@@ -7,7 +7,7 @@
 
         </sub-create>
 
-        <sub-index :subs="{{ json_encode($subs) }}" inline-template>
+        <sub-index :subs="{{ json_encode($subs) }}">
 
         </sub-index>
     </div>
