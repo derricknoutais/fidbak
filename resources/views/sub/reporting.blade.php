@@ -18,7 +18,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            {{-- <p class="card-text display-6">Nombre de Subs: @{{ localSubs.length }}</p> --}}
+                            <p class="card-text display-6">Nombre de Subs: @{{ localSubs.length }}</p>
                             <p class="card-text display-6">Montant Total: @{{ montantTotal | currency }}</p>
                         </div>
                     </div>
@@ -35,8 +35,8 @@
                         </thead>
                         <tbody>
                             <tr v-for="sub in subs">
-                                <td scope="row">@{{ sub.produit[0].name }}</td>
-                                <td>@{{ sub.produit[0].supply_price }}</td>
+                                <td scope="row" v-if="sub.produit[0]">@{{ sub.produit[0].variant_name }}</td>
+                                <td v-if="sub.produit[0]">@{{ sub.produit[0].supply_price }}</td>
                             </tr>
                         </tbody>
                     </table>

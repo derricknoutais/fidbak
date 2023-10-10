@@ -2461,9 +2461,9 @@ __webpack_require__.r(__webpack_exports__);
     montantTotal: function montantTotal() {
       var total = 0;
       this.localSubs.forEach(function (element) {
-        if (element.produit) {
-          if (element.produit.price) {
-            total += element.produit.price_including_tax;
+        if (element.produit[0]) {
+          if (element.produit[0].price_including_tax) {
+            total += element.produit[0].price_including_tax;
           }
         }
       });
@@ -2512,12 +2512,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  methods: {}
-  // created() {
-  //     this.localSubs = this.subs
-  //     this.localTotal = this.total;
-  //     // this.montantTotal = this.total
-  // }
+  methods: {},
+  created: function created() {
+    this.localSubs = this.subs;
+    this.localTotal = this.total;
+    // this.montantTotal = this.total
+  }
 });
 
 /***/ }),

@@ -13,10 +13,9 @@ export default {
         montantTotal() {
             var total = 0;
             this.localSubs.forEach(element => {
-                if (element.produit) {
-                    if (element.produit.price) {
-
-                        total += element.produit.price_including_tax
+                if (element.produit[0]) {
+                    if (element.produit[0].price_including_tax) {
+                        total += element.produit[0].price_including_tax
                     }
                 }
 
@@ -69,10 +68,10 @@ export default {
     methods: {
 
     },
-    // created() {
-    //     this.localSubs = this.subs
-    //     this.localTotal = this.total;
-    //     // this.montantTotal = this.total
-    // }
+    created() {
+        this.localSubs = this.subs
+        this.localTotal = this.total;
+        // this.montantTotal = this.total
+    }
 }
 </script>
