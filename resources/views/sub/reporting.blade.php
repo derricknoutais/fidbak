@@ -11,9 +11,9 @@
                             <div class="row px-5">
                                 <h4 class="card-title mr-3 mt-1">Reporting Subs sur une période de</h4>
 
-                                <input type="date" class="form-control col-3 mr-3" v-model="dateDu">
-                                <h4 class="mt-1">à</h4>
-                                <input type="date" class="form-control col-3 ml-3" v-model="dateAu">
+                                <input type="date" class="form-control col-sm-6 col-md-3 mr-3 " v-model="dateDu">
+                                <h4 class="mt-1 col-sm-6 col-md-1">à</h4>
+                                <input type="date" class="form-control col-sm-6 col-md-3" v-model="dateAu">
 
                             </div>
                         </div>
