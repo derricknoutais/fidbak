@@ -56,11 +56,31 @@ class SubController extends Controller
      */
     public function store(Request $request)
     {
-        Sub::create([
+        $created_sub = Sub::create([
             'product_id' => $request->id,
             'quantité' => 1,
             'nom' => $request->variant_name,
         ]);
+
+        $subs = json_decode(Redis::get('subs_with_products'), true);
+        $subs = collect($subs)->map(function ($item) {
+            // Transforme chaque produit en collection pour pouvoir
+            $t = collect($item);
+            $t->produit = $item['produit'];
+            // Trier et retourner les donnees  ci-dessous
+            return $t;
+        });
+        $products = json_decode(Redis::lrange('pulled_products', -1000000, 1000000)[0], true);
+
+        $found = array_filter($products, function ($product) use ($created_sub) {
+            return $product['id'] === $created_sub->product_id;
+        });
+
+        $created_sub->produit = collect(array_values($found));
+        $subs->push($created_sub);
+
+        Redis::del('subs_with_products');
+        Redis::set('subs_with_products', $subs);
     }
 
     /**

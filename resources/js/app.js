@@ -20,6 +20,12 @@ import VueCurrencyFilter from 'vue-currency-filter';
 Vue.component('v-select', vSelect)
 
 import Multiselect from 'vue-multiselect';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+Vue.use(VueSweetalert2);
+
+
 Vue.component('multiselect', Multiselect)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);

@@ -34,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="sub in subs">
+                            <tr v-for="sub in localSubs">
                                 <td scope="row" v-if="sub.produit[0]">@{{ sub.produit[0].variant_name }}</td>
                                 <td v-if="sub.produit[0]">@{{ sub.produit[0].supply_price }}</td>
                             </tr>

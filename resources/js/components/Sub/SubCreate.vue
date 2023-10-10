@@ -71,7 +71,8 @@ export default {
                 this.interval = setTimeout(this.alertSucces, 1000);
                 setTimeout(() => {
                     this.isCreating = false;
-                    window.location.reload()
+                    this.$swal('Sub créé avec succès!!')
+                    // window.location.reload()
                 }, 1000);
 
             }).catch(error => {
