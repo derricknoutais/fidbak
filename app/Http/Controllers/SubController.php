@@ -16,7 +16,7 @@ class SubController extends Controller
      */
     public function index()
     {
-        $subs = Sub::all();
+        $subs = Sub::latest()->get();
         return view('sub.index', compact('subs'));
     }
 

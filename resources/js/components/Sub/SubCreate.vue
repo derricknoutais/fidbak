@@ -68,12 +68,11 @@ export default {
             this.isCreating = true;
             axios.post('/subzero/store', this.selected_sub).then(response => {
 
-                this.interval = setTimeout(this.alertSucces, 1000);
+                this.$swal('Sub créé avec succès!!')
                 setTimeout(() => {
                     this.isCreating = false;
-                    this.$swal('Sub créé avec succès!!')
-                    // window.location.reload()
-                }, 1000);
+                    window.location.reload()
+                }, 1500);
 
             }).catch(error => {
                 console.log(error);

@@ -2376,12 +2376,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
       this.isCreating = true;
       axios.post('/subzero/store', this.selected_sub).then(function (response) {
-        _this2.interval = setTimeout(_this2.alertSucces, 1000);
+        _this2.$swal('Sub créé avec succès!!');
         setTimeout(function () {
           _this2.isCreating = false;
-          _this2.$swal('Sub créé avec succès!!');
-          // window.location.reload()
-        }, 1000);
+          window.location.reload();
+        }, 1500);
       })["catch"](function (error) {
         console.log(error);
       });
