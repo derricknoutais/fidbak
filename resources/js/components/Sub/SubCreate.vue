@@ -80,7 +80,7 @@ export default {
         }
     },
     created() {
-        axios.get('https://pulldb.azimuts.gq/api/products').then(response => {
+        axios.get('https://pulldb.stapog.com/api/products').then(response => {
             this.prod = response.data;
         }).catch(error => {
             console.log(error);
