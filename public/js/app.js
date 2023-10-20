@@ -2388,7 +2388,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     var _this3 = this;
-    axios.get('https://pulldb.azimuts.gq/api/products').then(function (response) {
+    axios.get('https://pulldb.stapog.com/api/products').then(function (response) {
       _this3.prod = response.data;
     })["catch"](function (error) {
       console.log(error);
