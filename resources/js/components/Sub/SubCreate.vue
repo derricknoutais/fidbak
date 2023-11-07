@@ -86,7 +86,6 @@ export default {
             console.log(error);
         });
         this.mySubs = this.subs
-
     }
 }
 </script>
