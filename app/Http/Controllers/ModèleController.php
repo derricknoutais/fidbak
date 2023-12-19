@@ -46,13 +46,27 @@ class ModèleController extends Controller
                 'marque_id' => $request->marque['id'],
             ]);
         }
-        if ($request->type && isset($modèle)) {
+        if (
+            $request->type &&
+            isset($modèle) &&
+            !ModèleType::where([
+                'modèle_id' => $modèle->id,
+                'type_id' => $request->type['id'],
+            ])->first()
+        ) {
             ModèleType::create([
                 'modèle_id' => $modèle->id,
                 'type_id' => $request->type['id'],
             ]);
         }
-        if ($request->type && isset($moteur)) {
+        if (
+            $request->type &&
+            isset($moteur) &&
+            !TypeMoteur::where([
+                'moteur_id' => $moteur->id,
+                'type_id' => $request->type['id'],
+            ])->first()
+        ) {
             TypeMoteur::create([
                 'moteur_id' => $moteur->id,
                 'type_id' => $request->type['id'],
