@@ -22,13 +22,25 @@ class ModèleController extends Controller
     }
     public function enregistrer(Request $request)
     {
-        if ($request->modèle) {
+        if (
+            $request->modèle &&
+            !($modèle = Modèle::where([
+                'nom' => $request->modèle,
+                'marque_id' => $request->marque['id'],
+            ])->first())
+        ) {
             $modèle = Modèle::create([
                 'nom' => $request->modèle,
                 'marque_id' => $request->marque['id'],
             ]);
         }
-        if ($request->moteur) {
+        if (
+            $request->moteur &&
+            !($moteur = Moteur::where([
+                'nom' => $request->moteur,
+                'marque_id' => $request->marque['id'],
+            ])->first())
+        ) {
             $moteur = Moteur::create([
                 'nom' => $request->moteur,
                 'marque_id' => $request->marque['id'],
