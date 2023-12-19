@@ -34,13 +34,13 @@ class ModèleController extends Controller
                 'marque_id' => $request->marque['id'],
             ]);
         }
-        if ($request->type && $modèle) {
+        if ($request->type && isset($modèle)) {
             ModèleType::create([
                 'modèle_id' => $modèle->id,
                 'type_id' => $request->type['id'],
             ]);
         }
-        if ($request->type && $moteur) {
+        if ($request->type && isset($moteur)) {
             TypeMoteur::create([
                 'moteur_id' => $moteur->id,
                 'type_id' => $request->type['id'],
