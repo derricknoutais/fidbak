@@ -148,10 +148,10 @@
                         <div class="card-body">
 
                             <p><strong>Client:</strong> <span v-if="fiche.customer_name !== null">{{
-                                fiche.marque.customer_name
-                            }}</span></p>
+                                fiche.customer_name
+                                    }}</span></p>
                             <p><strong>Client:</strong> <span v-if="fiche.customer_phone !== null">{{
-                                fiche.marque.customer_phone }}</span></p>
+                                fiche.customer_phone }}</span></p>
                             <p><strong>Marque:</strong> <span v-if="fiche.marque !== null">{{ fiche.marque.nom }}</span>
                             </p>
                             <p><strong>Type:</strong> <span v-if="fiche.type !== null">{{ fiche.type.nom }}</span></p>
