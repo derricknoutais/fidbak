@@ -11,7 +11,7 @@ class FicheRenseignementController extends Controller
     public function enregistrer(Request $request)
     {
         $fiche = FicheRenseignement::create([
-            'customer_id' => $request->selectedCustomer['id'],
+            'customer_id' => $request->selectedCustomer[0]['id'],
             'marque_id' => $request->marque['id'],
             'type_id' => $request->type['id'],
             'moteur_id' => $request->moteur['id'],
