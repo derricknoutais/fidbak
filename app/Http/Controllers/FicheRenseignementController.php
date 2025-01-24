@@ -12,6 +12,8 @@ class FicheRenseignementController extends Controller
     {
         $fiche = FicheRenseignement::create([
             'customer_id' => $request->selectedCustomer[0]['id'],
+            'customer_name' => $request->selectedCustomer[0]['first_name'] . ' ' . $request->selectedCustomer[0]['last_name'],
+            'customer_phone' => $request->selectedCustomer[0]['mobile'] . ' / ' . $request->selectedCustomer[0]['phone'] . ' / ' . $request->selectedCustomer[0]['fax'],
             'marque_id' => $request->marque['id'],
             'type_id' => $request->type['id'],
             'moteur_id' => $request->moteur['id'],
