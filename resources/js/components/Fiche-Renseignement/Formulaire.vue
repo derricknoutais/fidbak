@@ -438,6 +438,8 @@ export default {
             this.fiche_renseignement.moteur ? null : this.fiche_renseignement.moteur = { 'id': null }
             this.fiche_renseignement.modèle ? null : this.fiche_renseignement.modèle = { 'id': null }
 
+            this.fiche_renseignement.selectedCustomer = this.selectedCustomer
+
             axios.post('/fiche-renseignement/api/enregistrer', this.fiche_renseignement).then(response => {
                 location.reload();
                 console.log(response.data);
