@@ -48,7 +48,7 @@ class FicheRenseignementController extends Controller
     {
         return $fiches = FicheRenseignement::with(['articles', 'marque', 'type', 'moteur', 'modèle', 'articles.handle'])
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(100);
     }
 
     public function reporting()
