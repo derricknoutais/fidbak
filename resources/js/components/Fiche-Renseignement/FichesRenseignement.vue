@@ -149,7 +149,7 @@
 
                             <p><strong>Client:</strong> <span v-if="fiche.customer_name !== null">{{
                                 fiche.customer_name
-                                    }}</span></p>
+                            }}</span></p>
                             <p><strong>Client:</strong> <span v-if="fiche.customer_phone !== null">{{
                                 fiche.customer_phone }}</span></p>
                             <p><strong>Marque:</strong> <span v-if="fiche.marque !== null">{{ fiche.marque.nom }}</span>
@@ -216,6 +216,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <p><strong>Client:</strong> <span v-if="fiche.customer_name !== null">{{
+                        fiche.customer_name
+                            }}</span></p>
+                    <p><strong>Client:</strong> <span v-if="fiche.customer_phone !== null">{{
+                        fiche.customer_phone }}</span></p>
                     <p v-if="fiche.marque !== null"><strong>Marque:</strong> <span>{{ fiche.marque.nom }}</span></p>
                     <p v-if="fiche.type !== null"><strong>Type:</strong><span>{{ fiche.type.nom }}</span></p>
                     <p v-if="fiche.année !== null"><strong>Année:</strong><span>{{ fiche.année }}</span></p>
