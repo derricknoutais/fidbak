@@ -120,9 +120,7 @@ Route::prefix('/article')->group(function () {
         });
 
         Route::post('/bulk-fetch', function (Request $request) {
-            return Article::whereIn('id', $request->all())
-                ->with('fiche_renseignement', 'fiche_renseignement.marque', 'fiche_renseignement.modèle', 'fiche_renseignement.type', 'fiche_renseignement.moteur')
-                ->get();
+            return Article::whereIn('id', $request->all())->with('fiche_renseignement', 'fiche_renseignement.marque', 'fiche_renseignement.modèle', 'fiche_renseignement.type', 'fiche_renseignement.moteur')->get();
         });
     });
     Route::put('', 'ArticleController@update');

@@ -2051,6 +2051,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2102,7 +2105,10 @@ __webpack_require__.r(__webpack_exports__);
       modal: {
         ajouter: '',
         attribuer: ''
-      }
+      },
+      customers: [],
+      selectedCustomer: [],
+      isLoading: false
     };
   },
   methods: {
@@ -2231,24 +2237,46 @@ __webpack_require__.r(__webpack_exports__);
     displayModal: function displayModal(value) {
       $(value).modal('show');
     },
-    init: function init() {
+    asyncFind: function asyncFind(query) {
       var _this4 = this;
+      this.isLoading = true;
+      axios.get('https://pulldb.stapog.com/api/customers?search=' + query).then(function (response) {
+        _this4.customers = response.data;
+        console.log(response.data);
+        _this4.isLoading = false;
+      });
+    },
+    fullName: function fullName(_ref) {
+      var first_name = _ref.first_name,
+        last_name = _ref.last_name,
+        company_name = _ref.company_name;
+      if (company_name) {
+        return "".concat(company_name, " - ").concat(first_name, " ").concat(last_name);
+      } else {
+        return "".concat(first_name, " ").concat(last_name);
+      }
+    },
+    init: function init() {
+      var _this5 = this;
       axios.get('/fiche-renseignement/marque/api/all').then(function (response) {
-        _this4.marques = response.data;
+        _this5.marques = response.data;
       });
       axios.get('/fiche-renseignement/type/api/all').then(function (response) {
-        _this4.types = response.data;
+        _this5.types = response.data;
       });
       axios.get('/fiche-renseignement/moteur/api/all').then(function (response) {
-        _this4.moteurs = response.data;
+        _this5.moteurs = response.data;
       });
       axios.get('/fiche-renseignement/modèle/api/all').then(function (response) {
-        _this4.modèles = response.data;
+        _this5.modèles = response.data;
       });
       axios.get('/api/handles').then(function (response) {
-        _this4.handles = response.data;
+        _this5.handles = response.data;
       });
     }
+  },
+  created: function created() {
+    this.debounceCustomers = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.debounce)(this.asyncFind, 1000);
   },
   mounted: function mounted() {
     this.init();
@@ -3854,6 +3882,75 @@ var render = function render() {
     staticClass: "text-center mt-5"
   }, [_vm._v("Fiche de Renseignement")]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
+  }, [_c("label", [_vm._v("Client")]), _vm._v(" "), _c("multiselect", {
+    attrs: {
+      id: "ajax",
+      "custom-label": _vm.fullName,
+      "track-by": "code",
+      placeholder: "Type to search",
+      "open-direction": "bottom",
+      options: _vm.customers,
+      multiple: true,
+      searchable: true,
+      loading: _vm.isLoading,
+      "internal-search": false,
+      "clear-on-select": false,
+      "close-on-select": true,
+      "options-limit": 300,
+      limit: 3,
+      "max-height": 600,
+      "show-no-results": false,
+      "hide-selected": true
+    },
+    on: {
+      "search-change": _vm.debounceCustomers
+    },
+    scopedSlots: _vm._u([{
+      key: "tag",
+      fn: function fn(_ref) {
+        var option = _ref.option,
+          remove = _ref.remove;
+        return [_c("span", {
+          staticClass: "custom__tag"
+        }, [_c("span", [_vm._v(_vm._s(option.first_name + " " + option.last_name))]), _c("span", {
+          staticClass: "custom__remove",
+          on: {
+            click: function click($event) {
+              return remove(option);
+            }
+          }
+        }, [_vm._v("❌")])])];
+      }
+    }, {
+      key: "clear",
+      fn: function fn(props) {
+        return [_vm.selectedCustomer.length ? _c("div", {
+          staticClass: "multiselect__clear",
+          on: {
+            mousedown: function mousedown($event) {
+              $event.preventDefault();
+              $event.stopPropagation();
+              return _vm.clearAll(props.search);
+            }
+          }
+        }) : _vm._e()];
+      }
+    }, {
+      key: "noResult",
+      fn: function fn() {
+        return [_c("span", [_vm._v("Oops! No elements found. Consider changing the search query.")])];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.selectedCustomer,
+      callback: function callback($$v) {
+        _vm.selectedCustomer = $$v;
+      },
+      expression: "selectedCustomer"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
   }, [_c("label", [_vm._v("Marque")]), _vm._v(" "), _c("multiselect", {
     attrs: {
       options: _vm.marques,
@@ -3868,8 +3965,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref) {
-        var option = _ref.option;
+      fn: function fn(_ref2) {
+        var option = _ref2.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -3896,8 +3993,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref2) {
-        var option = _ref2.option;
+      fn: function fn(_ref3) {
+        var option = _ref3.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -3924,8 +4021,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref3) {
-        var option = _ref3.option;
+      fn: function fn(_ref4) {
+        var option = _ref4.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -3947,8 +4044,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref4) {
-        var option = _ref4.option;
+      fn: function fn(_ref5) {
+        var option = _ref5.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4096,7 +4193,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Autre Groupe")]), _vm._v(" "), !_vm.fiche_renseignement.autreGroupeCheckBox ? _c("multiselect", {
+  }, [_vm._v("Autre\n                        Groupe")]), _vm._v(" "), !_vm.fiche_renseignement.autreGroupeCheckBox ? _c("multiselect", {
     attrs: {
       options: _vm.handles,
       label: "name",
@@ -4105,8 +4202,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref5) {
-        var option = _ref5.option;
+      fn: function fn(_ref6) {
+        var option = _ref6.option;
         return [_c("strong", [_vm._v(_vm._s(option.name))])];
       }
     }], null, false, 2784876651),
@@ -4267,7 +4364,7 @@ var render = function render() {
         return _vm.enregistreUneMarque();
       }
     }
-  }, [_vm._v("Save changes")])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Save\n                        changes")])])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "type",
@@ -4301,8 +4398,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref6) {
-        var option = _ref6.option;
+      fn: function fn(_ref7) {
+        var option = _ref7.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4382,8 +4479,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref7) {
-        var option = _ref7.option;
+      fn: function fn(_ref8) {
+        var option = _ref8.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4405,8 +4502,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref8) {
-        var option = _ref8.option;
+      fn: function fn(_ref9) {
+        var option = _ref9.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4481,7 +4578,7 @@ var render = function render() {
         _vm.enregistreUnModèle();
       }
     }
-  }, [_vm._v("Save changes")])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Save\n                        changes")])])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "moteur",
@@ -4510,8 +4607,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref9) {
-        var option = _ref9.option;
+      fn: function fn(_ref10) {
+        var option = _ref10.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4562,7 +4659,7 @@ var render = function render() {
         return _vm.enregistreUnMoteur();
       }
     }
-  }, [_vm._v("Save changes")])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Save\n                        changes")])])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "moteur_type",
@@ -4591,8 +4688,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref10) {
-        var option = _ref10.option;
+      fn: function fn(_ref11) {
+        var option = _ref11.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4614,8 +4711,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref11) {
-        var option = _ref11.option;
+      fn: function fn(_ref12) {
+        var option = _ref12.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4644,7 +4741,7 @@ var render = function render() {
         return _vm.enregistreUnTypeAUnMoteur();
       }
     }
-  }, [_vm._v("Save changes")])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Save\n                        changes")])])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "modèle_type",
@@ -4673,8 +4770,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref12) {
-        var option = _ref12.option;
+      fn: function fn(_ref13) {
+        var option = _ref13.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4696,8 +4793,8 @@ var render = function render() {
     },
     scopedSlots: _vm._u([{
       key: "singleLabel",
-      fn: function fn(_ref13) {
-        var option = _ref13.option;
+      fn: function fn(_ref14) {
+        var option = _ref14.option;
         return [_c("strong", [_vm._v(_vm._s(option.nom))])];
       }
     }]),
@@ -4726,7 +4823,7 @@ var render = function render() {
         _vm.enregistreUnTypeAUnModèle();
       }
     }
-  }, [_vm._v("Save changes")])])])])])]);
+  }, [_vm._v("Save\n                        changes")])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
